@@ -2,113 +2,46 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>【教育用】警告画面デモ</title>
+<title>押せないボタン</title>
 <style>
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #d9d9d9;
-  }
-
-  /* 上部の赤い警告帯 */
-  .top-alert {
-    background: #c40000;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-  }
-
-  /* 画面全体を覆う半透明レイヤー */
-  .overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.45);
+    font-family: sans-serif;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
-  /* 中央の警告ウィンドウ */
-  .modal {
-    background: white;
-    width: 480px;
-    padding: 25px;
-    border: 4px solid red;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    text-align: center;
-  }
-
-  .fake-logo {
-    width: 70px;
-    height: 70px;
-    background: #0078d4;
-    margin: 0 auto 15px;
-  }
-
-  .title {
-    font-size: 26px;
-    color: red;
-    font-weight: bold;
-  }
-
-  .message {
-    margin-top: 15px;
-    font-size: 16px;
-    line-height: 1.6;
-  }
-
-  .call {
-    margin-top: 25px;
-    font-size: 20px;
-    color: blue;
-    font-weight: bold;
-  }
-
-  .button {
-    margin-top: 20px;
-    padding: 12px 25px;
-    background: #0078d4;
-    color: white;
-    border: none;
+  #btn {
+    padding: 12px 24px;
     font-size: 18px;
+    position: absolute;
     cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-<div class="top-alert">
-  【教育用】システム警告の例（実際の警告ではありません）
-</div>
+<button id="btn">クリックして！</button>
 
-<div class="overlay">
-  <div class="modal">
-    <div class="fake-logo"></div>
+<script>
+const btn = document.getElementById("btn");
 
-    <div class="title">疑似システム警告（教育用）</div>
+function moveButton() {
+  const x = Math.random() * (window.innerWidth - 150);
+  const y = Math.random() * (window.innerHeight - 60);
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
 
-    <div class="message">
-      この画面は、詐欺ページの見た目を理解するための教育用デモです。<br>
-      実際のサポートや警告ではありません。
-    </div>
+btn.addEventListener("mouseover", moveButton);
 
-    <div class="message">
-      ・赤い警告帯<br>
-      ・公式風の配色<br>
-      ・中央の警告ウィンドウ<br>
-      などが詐欺でよく使われます。
-    </div>
+btn.addEventListener("click", () => {
+  alert("よく頑張りました。これはただのドッキリです。");
+});
 
-    <div class="call">
-      架空の番号：000-0000-0000
-    </div>
-
-    <button class="button">（教育用）確認</button>
-  </div>
-</div>
+moveButton();
+</script>
 
 </body>
 </html>
