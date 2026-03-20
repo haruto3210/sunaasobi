@@ -2,86 +2,54 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>エラーログ風ジョーク画面</title>
+<title>高速エラーログ（ジョーク）</title>
 <style>
   body {
     margin: 0;
     background: #000;
     color: #0f0;
-    font-family: "Consolas", "Courier New", monospace;
+    font-family: Consolas, monospace;
     font-size: 14px;
   }
   #log {
     padding: 10px;
     white-space: pre-wrap;
   }
-  #bar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    background: #111;
-    color: #0f0;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-left: 1px solid #0f0;
-    border-bottom: 1px solid #0f0;
-  }
-  button {
-    background: #0f0;
-    color: #000;
-    border: none;
-    padding: 3px 8px;
-    cursor: pointer;
-    font-size: 12px;
-  }
 </style>
 </head>
 <body>
 
-<div id="bar">
-  フェイクログ（ジョーク） |
-  <button id="stopBtn">停止</button>
-</div>
 <div id="log"></div>
 
 <script>
 const log = document.getElementById("log");
-const stopBtn = document.getElementById("stopBtn");
 
-const errors = [
-  "ERROR: Something unexpected happened. (たぶん気のせいです)",
-  "WARN : System detected high level of 眠気.",
-  "ERROR: CoffeeNotFoundException at line 42.",
-  "WARN : User is staring at the screen suspiciously.",
-  "ERROR: Unable to locate motivation.dll",
-  "WARN : Overload of awesome detected.",
-  "ERROR: This error message is 100%ジョークです。",
-  "WARN : No real damage is being done."
+const msgs = [
+  "ERROR: Coffee temperature too low.",
+  "WARN : Happiness level unstable.",
+  "INFO : System recommends a break.",
+  "ERROR: Motivation.dll not responding.",
+  "WARN : User detected staring at screen.",
+  "INFO : Everything is actually fine.",
+  "ERROR: JokeEngine overflow detected.",
+  "WARN : This is全部ジョークです。",
 ];
 
-let running = true;
-
 function addLine() {
-  if (!running) return;
   const now = new Date().toISOString();
-  const msg = errors[Math.floor(Math.random() * errors.length)];
+  const msg = msgs[Math.floor(Math.random() * msgs.length)];
   log.textContent += `[${now}] ${msg}\n`;
 
-  // ログが長くなりすぎたら先頭を少し削る
-  if (log.textContent.length > 8000) {
-    log.textContent = log.textContent.slice(log.textContent.length - 8000);
+  // 長くなりすぎたら末尾だけ残す
+  if (log.textContent.length > 12000) {
+    log.textContent = log.textContent.slice(-8000);
   }
 
-  // 自動スクロール
   window.scrollTo(0, document.body.scrollHeight);
 }
 
-const timer = setInterval(addLine, 150);
-
-stopBtn.addEventListener("click", () => {
-  running = !running;
-  stopBtn.textContent = running ? "停止" : "再開";
-});
+// 超高速（1msごとに1行）
+setInterval(addLine, 1);
 </script>
 
 </body>
