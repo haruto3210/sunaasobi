@@ -2,53 +2,55 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>フェイク端末（ジョーク）</title>
+<title>ランダム警告（ジョーク）</title>
 <style>
   body {
     margin: 0;
     background: #000;
-    color: #0f0;
+    color: #f33;
     font-family: "Consolas", "Courier New", monospace;
-    padding: 10px;
-    font-size: 14px;
+    padding: 20px;
+    font-size: 18px;
   }
-  #screen {
+  #log {
     white-space: pre-wrap;
   }
 </style>
 </head>
 <body>
 
-<div id="screen"></div>
+<div id="log">システム監視中...\n</div>
 
 <script>
-const lines = [
-  "接続中... 192.168.0.1",
-  "認証試行中...",
-  "アクセス権限を確認しています...",
-  "データをスキャン中...",
-  "",
-  "結果: 特に問題は見つかりませんでした。",
-  "",
-  "==============================",
-  "  これはジョーク画面です。",
-  "  あなたのPCはハッキングされていません。",
-  "  ブラウザを閉じれば何も残りません。",
-  "=============================="
+const warnings = [
+  "警告: 予期しない動作を検出…（かもしれません）",
+  "注意: システムがあなたを見つめています。",
+  "警告: 何かが起きているような気がします。",
+  "注意: これはジョークの可能性があります。",
+  "警告: 深刻な問題…は特にありません。",
+  "注意: コーヒーの摂取量が不足しています。",
+  "警告: あなたのPCは今日も元気です。",
+  "注意: そろそろネタバレが近いです。"
 ];
 
-const screen = document.getElementById("screen");
-let index = 0;
+const log = document.getElementById("log");
+let count = 0;
 
-function printNextLine() {
-  if (index < lines.length) {
-    screen.textContent += lines[index] + "\n";
-    index++;
-    setTimeout(printNextLine, 500);
+function addWarning() {
+  const msg = warnings[Math.floor(Math.random() * warnings.length)];
+  log.textContent += msg + "\n";
+  count++;
+
+  if (count === 8) {
+    log.textContent += "\n==============================\n";
+    log.textContent += "  これはジョーク画面です。\n";
+    log.textContent += "  PCはハッキングされていません。\n";
+    log.textContent += "  ブラウザを閉じれば終わりです。\n";
+    log.textContent += "==============================\n";
   }
 }
 
-printNextLine();
+setInterval(addWarning, 800);
 </script>
 
 </body>
